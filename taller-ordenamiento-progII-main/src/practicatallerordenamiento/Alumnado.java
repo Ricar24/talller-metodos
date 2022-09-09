@@ -10,6 +10,9 @@ import java.math.RoundingMode;
 /**
  *
  * @author Augusto
+ * @class Alumnado
+ * Esta clase contiene como atributos, arreglos que se guardan de forma paralela de los datos requeridos en el taller
+ * para cada alumno
  */
 public class Alumnado {
     private String[] documentos;
@@ -48,6 +51,13 @@ public class Alumnado {
         return nroTiquetes[p];
     }
     
+    /**
+     * @method que determina y asigna la cantidad de tiquetes de cada estudiante según los siguientes criterios:
+     * promedio >= 4.3: 5 tickets
+     * promedio >= 3.6: 3 tickets
+     * promedio >=3.2: 2 tickets
+     * en caso de ser menor, no se le asignan tickets al estudiante
+     */
     public void calcularNroTiquetes() {
         int _nroTiquetes;
         for (int i = 0; i < cantAlumnos; i++) {
