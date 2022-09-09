@@ -488,14 +488,19 @@ public class Vista extends javax.swing.JFrame {
             for (int i = 0; i<alumnos.getCantAlumnos();i++) {
                 alumnos.setDocumento(i, Generador.generarDocumento());
                 alumnos.setPromedio(i, Generador.generarPromedio());
-                panelMetodosOrdenamiento.setVisible(true);
             }
+            panelMetodosOrdenamiento.setVisible(true);
             guardarAlumnos();
             mostrarTabla();
         }
         btnGuardarAlumnos.setEnabled(false);
     }//GEN-LAST:event_btnGuardarAlumnosActionPerformed
 
+    /**
+     *Método que recibe un parámetro de tipo booleano, cambia la usabilidad de los componentes dentro del panel
+     * al estado que sea ingresado
+     * @param estado 
+     */
     private void cambiarPanelIngreso(boolean estado) {
         for (int i = 0; i < panelGuardadoManual.getComponentCount(); i++) {
             panelGuardadoManual.getComponent(i).setEnabled(estado);
@@ -505,7 +510,7 @@ public class Vista extends javax.swing.JFrame {
     private void btnGuardarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarAlumnoActionPerformed
        try {
            final float promedio = Float.parseFloat(tbxPromedio.getText());
-            if (contador < cantAlumnos && (promedio <= 5 && promedio >= 3)) {
+            if (contador < cantAlumnos && (promedio <= 5 && promedio >= 3)) { //Condición que previene ingresar un promedio erróneo
                 alumnos.setDocumento(contador, tbxDocumento.getText());
                 alumnos.setPromedio(contador, new BigDecimal(promedio).setScale(2, RoundingMode.HALF_UP));
                 contador++;
@@ -531,9 +536,12 @@ public class Vista extends javax.swing.JFrame {
     private void guardarAlumnos() {
         alumnos.calcularNroTiquetes();
         algOrd.setAlumn(alumnos);
-        alumnos = null;
+        alumnos = null; // se libera la memoria utilizada después de la asignación al objeto de la clase controlador
     }
     
+    /**
+     * método que muestra los datos de los arreglos en forma secuencial en el elemento jTable de la interfaz
+     */
     private void mostrarTabla() {
         modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(new String[] {"Documento", "Promedio", "Tiquetes"});
@@ -547,8 +555,49 @@ public class Vista extends javax.swing.JFrame {
         rbtMetodoSeleccion.setActionCommand("SELECCION");
     }//GEN-LAST:event_rbtMetodoSeleccionActionPerformed
 
+    private void rbtMetodoBurbujaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMetodoBurbujaActionPerformed
+        rbtMetodoBurbuja.setActionCommand("BURBUJA");
+    }//GEN-LAST:event_rbtMetodoBurbujaActionPerformed
+
+    private void rbtMetodoIntercambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMetodoIntercambioActionPerformed
+        rbtMetodoIntercambio.setActionCommand("INTERCAMBIO");
+    }//GEN-LAST:event_rbtMetodoIntercambioActionPerformed
+
+    private void rbtMetodoQuicksortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMetodoQuicksortActionPerformed
+        rbtMetodoQuicksort.setActionCommand("QUICKSORT");
+    }//GEN-LAST:event_rbtMetodoQuicksortActionPerformed
+
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
+        this.setVisible(false);
+        new Vista().setVisible(true);
+    }//GEN-LAST:event_btnReiniciarActionPerformed
+
+    private void rbtLlenadoAutomaticoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtLlenadoAutomaticoPropertyChange
+        rbtLlenadoAutomatico.setContentAreaFilled(false);
+    }//GEN-LAST:event_rbtLlenadoAutomaticoPropertyChange
+
+    private void rbtLlenadoManualPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtLlenadoManualPropertyChange
+        rbtLlenadoManual.setContentAreaFilled(false);
+    }//GEN-LAST:event_rbtLlenadoManualPropertyChange
+
+    private void rbtMetodoBurbujaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoBurbujaPropertyChange
+        rbtMetodoBurbuja.setContentAreaFilled(false);
+    }//GEN-LAST:event_rbtMetodoBurbujaPropertyChange
+
+    private void rbtMetodoSeleccionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoSeleccionPropertyChange
+        rbtMetodoSeleccion.setContentAreaFilled(false);
+    }//GEN-LAST:event_rbtMetodoSeleccionPropertyChange
+
+    private void rbtMetodoIntercambioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoIntercambioPropertyChange
+        rbtMetodoIntercambio.setContentAreaFilled(false);
+    }//GEN-LAST:event_rbtMetodoIntercambioPropertyChange
+
+    private void rbtMetodoQuicksortPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoQuicksortPropertyChange
+        rbtMetodoQuicksort.setContentAreaFilled(false);
+    }//GEN-LAST:event_rbtMetodoQuicksortPropertyChange
+
     private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
-        String seleccion = grupoMetodoOrdenamiento.getSelection().getActionCommand();
+                String seleccion = grupoMetodoOrdenamiento.getSelection().getActionCommand();
         switch(seleccion) {
             
             case "BURBUJA" -> {
@@ -571,53 +620,6 @@ public class Vista extends javax.swing.JFrame {
         btnOrdenar.setEnabled(false);
         btnReiniciar.setEnabled(true);
     }//GEN-LAST:event_btnOrdenarActionPerformed
-
-    private void rbtMetodoBurbujaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMetodoBurbujaActionPerformed
-        rbtMetodoBurbuja.setActionCommand("BURBUJA");
-    }//GEN-LAST:event_rbtMetodoBurbujaActionPerformed
-
-    private void rbtMetodoIntercambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMetodoIntercambioActionPerformed
-        rbtMetodoIntercambio.setActionCommand("INTERCAMBIO");
-    }//GEN-LAST:event_rbtMetodoIntercambioActionPerformed
-
-    private void rbtMetodoQuicksortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMetodoQuicksortActionPerformed
-        rbtMetodoQuicksort.setActionCommand("QUICKSORT");
-    }//GEN-LAST:event_rbtMetodoQuicksortActionPerformed
-
-    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        this.setVisible(false);
-        new Vista().setVisible(true);
-    }//GEN-LAST:event_btnReiniciarActionPerformed
-
-    private void rbtLlenadoAutomaticoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtLlenadoAutomaticoPropertyChange
-        // TODO add your handling code here:
-        rbtLlenadoAutomatico.setContentAreaFilled(false);
-    }//GEN-LAST:event_rbtLlenadoAutomaticoPropertyChange
-
-    private void rbtLlenadoManualPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtLlenadoManualPropertyChange
-        // TODO add your handling code here:
-        rbtLlenadoManual.setContentAreaFilled(false);
-    }//GEN-LAST:event_rbtLlenadoManualPropertyChange
-
-    private void rbtMetodoBurbujaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoBurbujaPropertyChange
-        // TODO add your handling code here:
-        rbtMetodoBurbuja.setContentAreaFilled(false);
-    }//GEN-LAST:event_rbtMetodoBurbujaPropertyChange
-
-    private void rbtMetodoSeleccionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoSeleccionPropertyChange
-        // TODO add your handling code here:
-        rbtMetodoSeleccion.setContentAreaFilled(false);
-    }//GEN-LAST:event_rbtMetodoSeleccionPropertyChange
-
-    private void rbtMetodoIntercambioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoIntercambioPropertyChange
-        // TODO add your handling code here:
-        rbtMetodoIntercambio.setContentAreaFilled(false);
-    }//GEN-LAST:event_rbtMetodoIntercambioPropertyChange
-
-    private void rbtMetodoQuicksortPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_rbtMetodoQuicksortPropertyChange
-        // TODO add your handling code here:
-        rbtMetodoQuicksort.setContentAreaFilled(false);
-    }//GEN-LAST:event_rbtMetodoQuicksortPropertyChange
 
 
 

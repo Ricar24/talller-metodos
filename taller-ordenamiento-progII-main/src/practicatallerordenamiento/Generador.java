@@ -11,6 +11,7 @@ import java.math.RoundingMode;
 /**
  *
  * @author Augusto
+ * @Class generador, genera aleatoriamente alumnos para casos de prueba del programa
  */
 public class Generador {
     
